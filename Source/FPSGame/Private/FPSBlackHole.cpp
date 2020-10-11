@@ -4,6 +4,7 @@
 #include "FPSBlackHole.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "FPSCharacter.h"
 
 // Sets default values
 AFPSBlackHole::AFPSBlackHole()
@@ -37,7 +38,7 @@ void AFPSBlackHole::OverlapEventHorizon(UPrimitiveComponent* OverlappedComponent
 
 void AFPSBlackHole::Tick(float DeltaTime) 
 {
-	Super::Tick(DeltaTime);
+	//Super::Tick(DeltaTime);
 
 	TArray<UPrimitiveComponent*> OverlappingComps;
 	GravityField->GetOverlappingComponents(OverlappingComps);
@@ -55,6 +56,27 @@ void AFPSBlackHole::Tick(float DeltaTime)
 			PrimComp->AddRadialForce(GetActorLocation(), SphereRadius, ForceStrength, ERadialImpulseFalloff::RIF_Constant, true);
 		}
 	}
+
+	TArray<AActor*> OverlappingActors;
+	GravityField->GetOverlappingActors(OverlappingActors);
+
+	for (int32 i = 0; i < OverlappingActors.Num(); i++)
+	{
+		AActor* Actor = OverlappingActors[i];
+		AFPSCharacter* Pawn = Cast<AFPSCharacter>(Actor);
+
+		if (Pawn)
+		{
+			// the component we are looking for! It needs to be simulating in order to apply forces.
+
+			const float SphereRadius = GravityField->GetScaledSphereRadius();
+			const float ForceStrength = -20; // Negative value to make it pull towards the origin instead of pushing away
+
+			Pawn->GetMovementComponent()->AddRadialImpulse(GetActorLocation(), SphereRadius, ForceStrength, ERadialImpulseFalloff::RIF_Constant, true);
+			UE_LOG(LogTemp, Log, TEXT("Player in black hole."));
+		}
+	}
+
 }
 
 

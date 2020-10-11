@@ -24,3 +24,4 @@ void AFPSGameMode::CompleteMission(APawn* Pawn)
 
 	OnMissionCompleted(Pawn);
 }
+

@@ -19,6 +19,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
 	void OnMissionCompleted(APawn* Pawn);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void BeginPlay();
 };
 
 

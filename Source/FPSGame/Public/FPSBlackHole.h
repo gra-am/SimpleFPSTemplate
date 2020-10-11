@@ -4,10 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "FPSCharacter.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "FPSBlackHole.generated.h"
 
 class USphereComponent;
 class UStaticMeshComponent;
+class AFPSCharacter;
 
 UCLASS()
 class FPSGAME_API AFPSBlackHole : public AActor
