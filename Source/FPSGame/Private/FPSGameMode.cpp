@@ -3,7 +3,7 @@
 #include "FPSGameMode.h"
 #include "FPSHUD.h"
 #include "FPSCharacter.h"
-#include "UObject/ConstructorHelpers.h"
+
 
 AFPSGameMode::AFPSGameMode()
 {
@@ -13,4 +13,14 @@ AFPSGameMode::AFPSGameMode()
 
 	// use our custom HUD class
 	HUDClass = AFPSHUD::StaticClass();
+}
+
+void AFPSGameMode::CompleteMission(APawn* Pawn)
+{
+	if (Pawn)
+	{
+		Pawn->DisableInput(nullptr);
+	}
+
+	OnMissionCompleted(Pawn);
 }
