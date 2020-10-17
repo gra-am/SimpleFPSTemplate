@@ -3,6 +3,7 @@
 #include "FPSProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameFramework/Actor.h"
 
 AFPSProjectile::AFPSProjectile() 
 {
@@ -28,7 +29,7 @@ AFPSProjectile::AFPSProjectile()
 	ProjectileMovement->bShouldBounce = true;
 
 	// Die after 3 seconds by default
-	InitialLifeSpan = 15.0f;
+	InitialLifeSpan = 3.0f;
 }
 
 
@@ -39,6 +40,10 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
-		Destroy();
+		
 	}
+
+	MakeNoise(1.0f, GetInstigator());
+
+	Destroy();
 }

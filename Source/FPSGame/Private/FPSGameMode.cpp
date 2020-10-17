@@ -15,13 +15,13 @@ AFPSGameMode::AFPSGameMode()
 	HUDClass = AFPSHUD::StaticClass();
 }
 
-void AFPSGameMode::CompleteMission(APawn* Pawn)
+void AFPSGameMode::CompleteMission(APawn* Pawn, bool bMissionSuccess)
 {
 	if (Pawn)
 	{
 		Pawn->DisableInput(nullptr);
 	}
 
-	OnMissionCompleted(Pawn);
+	OnMissionCompleted(Pawn, bMissionSuccess);
 }
 
